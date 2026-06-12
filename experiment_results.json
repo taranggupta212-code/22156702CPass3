@@ -1,0 +1,93 @@
+{
+  "experiment": "BUS5001 Q3 ESG Message Triage",
+  "date": "2026-06-12",
+  "model_llm": "meta-llama/llama-4-scout:free (via OpenRouter)",
+  "model_baseline": "facebook/bart-large-mnli",
+  "messages": [
+    "There is a water leak in Building C that has been running all morning.",
+    "The recycling bins are contaminated again and no one seems to be checking them.",
+    "I want to report that one of our suppliers may not meet our sustainability policy. They are using uncertified palm oil and I have evidence from the loading dock."
+  ],
+  "gemini_results": [
+    {
+      "message": "There is a water leak in Building C that has been running all morning.",
+      "result": {
+        "issue_category": "WATER_LEAK",
+        "urgency": "HIGH",
+        "sentiment": "NEGATIVE",
+        "followup_required": "Y",
+        "recommended_team": "FACILITIES",
+        "escalation_reason": "Active leak with ongoing resource waste, requires facilities response within 4 hours.",
+        "data_sensitivity_risk": "LOW",
+        "brief_summary": "Water leak in Building C running since this morning."
+      }
+    },
+    {
+      "message": "The recycling bins are contaminated again and no one seems to be checking them.",
+      "result": {
+        "issue_category": "WASTE_CONTAMINATION",
+        "urgency": "MEDIUM",
+        "sentiment": "NEGATIVE",
+        "followup_required": "Y",
+        "recommended_team": "SUSTAINABILITY",
+        "escalation_reason": "Recycling bins are contaminated, indicating a potential ongoing issue with waste management practices that requires investigation by the sustainability team.",
+        "data_sensitivity_risk": "LOW",
+        "brief_summary": "Recycling bins are contaminated, and there is a perceived lack of oversight."
+      }
+    },
+    {
+      "message": "I want to report that one of our suppliers may not meet our sustainability policy. They are using uncertified palm oil and I have evidence from the loading dock.",
+      "result": {
+        "issue_category": "SUSPECTED_SUPPLIER_NONCOMPLIANCE",
+        "urgency": "CRITICAL",
+        "sentiment": "NEGATIVE",
+        "followup_required": "Y",
+        "recommended_team": "PROCUREMENT",
+        "escalation_reason": "Potential breach of sustainability policy by a supplier requires immediate investigation by procurement.",
+        "data_sensitivity_risk": "HIGH",
+        "brief_summary": "Supplier may not meet sustainability policy; using uncertified palm oil. Evidence from loading dock."
+      }
+    }
+  ],
+  "baseline_results": [
+    {
+      "message": "There is a water leak in Building C that has been running all morning.",
+      "top_label": "water leak",
+      "confidence": 0.95,
+      "all_scores": {
+        "water leak": 0.95,
+        "energy waste": 0.015,
+        "other": 0.014,
+        "accessibility barrier": 0.01,
+        "waste contamination": 0.006,
+        "suspected supplier noncompliance": 0.005
+      }
+    },
+    {
+      "message": "The recycling bins are contaminated again and no one seems to be checking them.",
+      "top_label": "waste contamination",
+      "confidence": 0.858,
+      "all_scores": {
+        "waste contamination": 0.858,
+        "other": 0.062,
+        "accessibility barrier": 0.048,
+        "suspected supplier noncompliance": 0.025,
+        "energy waste": 0.006,
+        "water leak": 0.003
+      }
+    },
+    {
+      "message": "I want to report that one of our suppliers may not meet our sustainability policy. They are using uncertified palm oil and I have evidence from the loading dock.",
+      "top_label": "suspected supplier noncompliance",
+      "confidence": 0.979,
+      "all_scores": {
+        "suspected supplier noncompliance": 0.979,
+        "other": 0.013,
+        "accessibility barrier": 0.004,
+        "waste contamination": 0.002,
+        "energy waste": 0.001,
+        "water leak": 0.001
+      }
+    }
+  ]
+}
